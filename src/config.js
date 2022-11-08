@@ -1,5 +1,5 @@
 
 
 export const config={
-api:"http://localhost:3008"
+api:"https://nodeproductdetails.herokuapp.com"
 }
