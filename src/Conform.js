@@ -21,7 +21,7 @@ function Conform() {
         },
         onSubmit: async (User) => {
             try {
-                await axios.post(`${config.api}/Reset-Password/${test.id}/${test.token}`, User);
+                await axios.put(`${config.api}/Reset/${test.id}`, User);
                 Swal.fire({ title: 'Welcome', text: 'Updated Done', icon: 'success', confirmButtonText: 'Login'});
             } catch (error) {
                 Swal.fire({ title: `${error.response.data.Message}`, icon: 'warning', confirmButtonText: 'Try Again' });
