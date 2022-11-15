@@ -50,7 +50,7 @@ function Login() {
             <div className="col-lg-5 d-none d-lg-block">
               <img
                 className="bg-login-image"
-                src="./image/register.jpg"
+                src="./image/login.jpg"
                 alt="login"
               />
             </div>
