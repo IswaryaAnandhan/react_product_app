@@ -1,17 +1,24 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { config } from "./config";
 
-function Login() {
-  const navigate = useNavigate();
-  const formik = useFormik({
+function Register() {
+  let navigate = useNavigate();
+  let formik = useFormik({
     initialValues: {
+      name: "",
       email: "",
       password: "",
-    },    validate: (values) => {
+    },
+    validate: (values) => {
       const errors = {};
+      if (!values.name) {
+        errors.name = "Please enter the name";
+      } else if (values.name.length > 15) {
+        errors.name = "must be 15 characters or less";
+      }
       if (!values.email) {
         errors.email = "Please enter the email id";
       } else if (
@@ -28,17 +35,12 @@ function Login() {
     },
     onSubmit: async (values) => {
       try {
-        const user = await axios.post(`${config.api}/user/login`, values);
-        localStorage.setItem("myreact", user.data.token);
-        if (user.data.message === "Success") {
-          navigate("/product");
-          alert("Successfully Logged in");
-        }else {
-          alert("Incorrect email/password" );
-        }
+        await axios.post(`${config.api}/user/register`, values);
+        navigate("/");    
+        alert("Successfully Registered");
       } catch (error) {
-        console.log(error.response.data.message);
-        alert(error.response.data.message);
+        console.log(error);
+        alert("Something went wrong");
       }
     },
   });
@@ -57,9 +59,37 @@ function Login() {
             <div className="col-lg-7">
               <div className="p-5">
                 <div className="text-center">
-                  <h1 className="h4 text-gray-900 mb-4">Login in your account!</h1>
+                  <h1 className="h4 text-gray-900 mb-4">Create an Account!</h1>
                 </div>
                 <form className="user" onSubmit={formik.handleSubmit}>
+                  <div className="form-group row">
+                    <div className="col-sm-6 mb-3 mb-sm-0">
+                      <input
+                        name="name"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.name}
+                        type={"text"}
+                        className={`form-control form-control-user ${
+                          formik.touched.name && formik.errors.name
+                            ? "error-box"
+                            : ""
+                        } ${
+                          formik.touched.name && !formik.errors.name
+                            ? "success-box"
+                            : null
+                        }`}
+                        id="exampleFirstName"
+                        placeholder="Full Name"
+                      />
+                      {formik.touched.name && formik.errors.name ? (
+                        <span style={{ color: "red" }}>
+                          {formik.errors.name}
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                  <br />
                   <div className="form-group">
                     <input
                       name="email"
@@ -118,15 +148,9 @@ function Login() {
                     type={"submit"}
                     className="btn btn-primary btn-user btn-block"
                   >
-                  Login
+                    Register Account
                   </button>
                 </form>
-                <div className="text-center">
-                  <Link to={"/forgot"}>Forgot password</Link>
-                  <br />
-                  <br />
-                  <Link to={"/register"}>Create an Account!</Link>
-                </div>
               </div>
             </div>
           </div>
@@ -136,4 +160,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
