@@ -1,43 +1,44 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import React from "react";
-
-import { config } from "./config";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-function Forgot() {
+import { config } from "./config";
+
+function Confirm() {
+  const test = useParams();
   let formik = useFormik({
     initialValues: {
-      email: "",
+      password: "",
     },
-    validate: (value) => {
+    validate: (values) => {
       let errors = {};
       //Password;
-      if (value.email === "") {
-        errors.email = "border border-info";
+      if (!values.password) {
+        errors.password = "Please enter the password";
+      } else if (values.password.length < 8) {
+        errors.password = "must be 8 characters";
       }
       return errors;
     },
-    onSubmit: async (User) => {
+    onSubmit: async (values) => {
       try {
-        let status = await axios.post(`${config.api}/Reset`, User);
-        console.log(status);
+        await axios.post(`${config.api}/Reset/${test.id}/${test.token}`, values);
         Swal.fire({
-          title: "Email Send",
-          text: "Please Check Your Email",
+          title: "Welcome",
+          text: "Updated Done",
           icon: "success",
           confirmButtonText: "Login",
         });
       } catch (error) {
         Swal.fire({
-          title: "User Not Found",
+          title: `${error.response.data.Message}`,
           icon: "warning",
           confirmButtonText: "Try Again",
         });
-        console.log(error);
       }
     },
   });
-
   return (
     <>
       <div className="container">
@@ -45,21 +46,25 @@ function Forgot() {
           <div className="col-lg-5 col-md-7 col-sm-9 border rounded rounded check mt-5">
             <form className="mt-5" onSubmit={formik.handleSubmit}>
               <div className="form-group">
-                <label>Enter Register Email ID</label>
+              <label>
+                  New Password
+                </label>
                 <input
-                  type="email"
+                  type="password"
                   className="form-control"
-                  value={formik.values.email}
+                  value={formik.values.password}
                   onChange={formik.handleChange}
-                  name="email"
+                  name="password"
                   required
                 />
+              
               </div>
+
               <button
                 type="submit"
                 className="btn btn-primary btn-sm btn-block mb-3"
               >
-                Send Reset Link
+                Click to Update password
               </button>
             </form>
           </div>
@@ -69,4 +74,4 @@ function Forgot() {
   );
 }
 
-export default Forgot;
+export default Confirm;

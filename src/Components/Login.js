@@ -10,7 +10,8 @@ function Login() {
     initialValues: {
       email: "",
       password: "",
-    },    validate: (values) => {
+    },  
+      validate: (values) => {
       const errors = {};
       if (!values.email) {
         errors.email = "Please enter the email id";
