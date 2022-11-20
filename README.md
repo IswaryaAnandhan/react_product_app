@@ -1,4 +1,5 @@
-This project perfectly run in localhost: https://localhost:3000
+This project perfectly run in localhost for react: https://localhost:3000
+Node app perfectly run : https://localhost:3008
 
 
 
