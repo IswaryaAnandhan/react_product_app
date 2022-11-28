@@ -10,7 +10,8 @@ function Register() {
     initialValues: {
       name: "",
       email: "",
-      password: "",
+      password: ""
+
     },
     validate: (values) => {
       const errors = {};

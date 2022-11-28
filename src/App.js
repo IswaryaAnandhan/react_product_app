@@ -20,6 +20,7 @@ function App() {
     <Route path="/forgot" element={<Forgot />} />
     <Route path='/Reset/:id/:token' element={<Confirm/>}/>
     <Route path="/product" element={<Product/>}/>
+  
     </Routes>
     </BrowserRouter>
    

@@ -16,8 +16,7 @@ function Product() {
           const products = await axios.get(`${config.api}/products`,{
           headers:{
             "Authorization":localStorage.getItem("myreact")
-          }});
-         
+          }});        
           setProductList(products.data);
         } catch (error) {
           alert("something went wrong");
