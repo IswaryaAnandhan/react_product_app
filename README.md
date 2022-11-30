@@ -1,6 +1,3 @@
-This project perfectly run in localhost for react: http://localhost:3000
-Node app perfectly run : http://localhost:3008
-
 
 
 # Getting Started with Create React App
