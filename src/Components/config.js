@@ -1,6 +1,6 @@
 
 
 export const config={
-api:"https://nodeproductdetails.herokuapp.com"
+api:"https://password-reset-app.onrender.com"
 //  api:"http://localhost:3008"
 }
