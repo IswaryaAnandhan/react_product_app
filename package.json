@@ -16,7 +16,8 @@
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.5",
     "sweetalert2": "^11.6.8",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start": "react-scripts start",
